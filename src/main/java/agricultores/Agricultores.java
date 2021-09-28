@@ -1,3 +1,5 @@
+package agricultores;
+
 import java.util.Scanner;
 public class Agricultores {
     public static void main(String[] args) {
