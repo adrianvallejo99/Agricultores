@@ -1,31 +1,52 @@
 package agricultores;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Test {
     public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
-        String [][] matrizAgricultores = new String[2][];
-        int numeros;
-        String cantidad;
-        int agricultor = 1;
-        int y = 1;
-        do{
-           System.out.println("Unidades agricultor ");
-           numeros = teclado.nextInt();
-           cantidad = String.valueOf(numeros);
-           if (numeros != 0) {
-                matrizAgricultores [0][y] = "agricultor" ;
-                matrizAgricultores [1][y] = "Cantidad: " + cantidad;
-                y++;
-                agricultor++;
-           }
-        }while(numeros != 0);
+        Agricultores lista = new Agricultores();
+        int agricultores = 0;
+        boolean stop;
+        ArrayList<String> trabajadores = new ArrayList<>();
 
-        for (int i = 0; i < matrizAgricultores.length; i++){
-            for (int j = 0; j < matrizAgricultores.length; j++) {
-                System.out.print(matrizAgricultores[i][j] + "\t");
+        do{
+            lista.getLista().add(leerEntero());
+            if (lista.getLista().get(lista.getLista().size() - 1) != 0){
+                stop = true;
+                agricultores++;
+            }else{
+                lista.getLista().remove(lista.getLista().size()-1);
+                stop = false;
             }
+        }while(stop);
+
+        int suma = 0;
+        for (int i = 0; i < lista.getLista().size(); i++) {
+            suma += lista.getLista().get(i);
+        }
+        int media = suma/agricultores;
+
+        for (int i = 0; i < lista.getLista().size(); i++) {
+            trabajadores.add( "agr" +(i+1));
+        }
+
+        System.out.println("Lista: "+trabajadores);
+
+        lista.mostrar();
+
+        if (suma%agricultores == 0){
+            System.out.println("Se pueden repartir y les toca a cada uno " + media);
+        }else{
+            System.out.println("No se pueden repartir");
         }
     }
+
+    private static int leerEntero() {
+        Scanner teclado = new Scanner(System.in);
+        System.out.println("Introduce la cantidad de fruta");
+        String texto = teclado.next();
+        return Integer.parseInt(texto);
+    }
+
 }
